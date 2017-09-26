@@ -1,5 +1,25 @@
 apply plugin: 'com.android.application'
 
+
+
+def propFile = project.rootProject.file('signing.properties')
+if (propFile.exists()) {
+    def Properties signProperties = new Properties();
+    signProperties.load(new FileInputStream(propFile))
+    if (signProperties.containsKey('STORE_FILE') && signProperties.containsKey('STORE_PASSWORD')
+            && signProperties.containsKey('KEY_ALIAS') && signProperties.containsKey('KEY_PASSWORD')) {
+        android.signingConfigs.release.storeFile = file(signProperties['STORE_FILE'])
+        android.signingConfigs.release.storePassword = signProperties['STORE_PASSWORD']
+        android.signingConfigs.release.keyAlias = signProperties['KEY_ALIAS']
+        android.signingConfigs.release.keyPassword = signProperties['KEY_PASSWORD']
+    } else {
+        android.buildTypes.release.signingConfig = null
+    }
+} else {
+    android.buildTypes.release.signingConfig = null
+}
+
+
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
@@ -15,8 +35,22 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.releaseConfig//注意这一行
+
         }
     }
+
+
+    signingConfigs {
+        debug {
+
+        }
+
+        release {
+
+        }
+    }
+
 }
 
 dependencies {
