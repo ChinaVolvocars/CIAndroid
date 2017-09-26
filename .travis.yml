@@ -18,6 +18,11 @@ android:
       - extra-android-m2repository
       - extra-android-support
 
+  deploy:
+    provider: releases
+    file: TravisExample.apk
+    skip_cleanup: true
+
   script:
     - "./gradlew assembleRelease"
 
