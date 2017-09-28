@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         viewById.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "构建成功--->>>JC22", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "构建成功--->>>JC33", Toast.LENGTH_SHORT).show();
             }
         });
     }
