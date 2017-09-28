@@ -2,22 +2,6 @@ apply plugin: 'com.android.application'
 
 
 
-def propFile = project.rootProject.file('signing.properties')
-if (propFile.exists()) {
-    def Properties signProperties = new Properties();
-    signProperties.load(new FileInputStream(propFile))
-    if (signProperties.containsKey('STORE_FILE') && signProperties.containsKey('STORE_PASSWORD')
-            && signProperties.containsKey('KEY_ALIAS') && signProperties.containsKey('KEY_PASSWORD')) {
-        android.signingConfigs.release.storeFile = file(signProperties['STORE_FILE'])
-        android.signingConfigs.release.storePassword = signProperties['STORE_PASSWORD']
-        android.signingConfigs.release.keyAlias = signProperties['KEY_ALIAS']
-        android.signingConfigs.release.keyPassword = signProperties['KEY_PASSWORD']
-    } else {
-        android.buildTypes.release.signingConfig = null
-    }
-} else {
-    android.buildTypes.release.signingConfig = null
-}
 
 
 android {
@@ -33,12 +17,12 @@ android {
     }
 
 
+
     signingConfigs {
 
 
         release {
-
-            storeFile file("../keys/CIAndroid.jks")//指定密钥文件的路径
+            storeFile file("../CIAndroid.jks")//指定密钥文件的路径 ---> 在根目录下，不是app里面的那个
             storePassword project.hasProperty("KEYSTORE_PASS") ? KEYSTORE_PASS : System.getenv("KEYSTORE_PASS")//指定密钥参数
             keyAlias project.hasProperty("ALIAS_NAME") ? ALIAS_NAME : System.getenv("ALIAS_NAME")
             keyPassword project.hasProperty("ALIAS_PASS") ? ALIAS_PASS : System.getenv("ALIAS_PASS")
@@ -51,7 +35,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release//注意这一行
-
         }
 
 
