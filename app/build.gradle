@@ -23,10 +23,12 @@ android {
 
         release {
             storeFile file("../CIAndroid.jks")//指定密钥文件的路径 ---> 在根目录下，不是app里面的那个
-            storePassword project.hasProperty("KEYSTORE_PASS") ? KEYSTORE_PASS : System.getenv("KEYSTORE_PASS")//指定密钥参数
-            keyAlias project.hasProperty("ALIAS_NAME") ? ALIAS_NAME : System.getenv("ALIAS_NAME")
-            keyPassword project.hasProperty("ALIAS_PASS") ? ALIAS_PASS : System.getenv("ALIAS_PASS")
-
+//            storePassword project.hasProperty("KEYSTORE_PASS") ? KEYSTORE_PASS : System.getenv("KEYSTORE_PASS")//指定密钥参数
+//            keyAlias project.hasProperty("ALIAS_NAME") ? ALIAS_NAME : System.getenv("ALIAS_NAME")
+//            keyPassword project.hasProperty("ALIAS_PASS") ? ALIAS_PASS : System.getenv("ALIAS_PASS")
+            storePassword "123456"
+            keyAlias "CI"
+            keyPassword "123456"
         }
     }
 
@@ -39,8 +41,6 @@ android {
 
 
     }
-
-
 
 
 }
